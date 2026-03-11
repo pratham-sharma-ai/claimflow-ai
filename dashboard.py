@@ -18,8 +18,14 @@ import plotly.express as px
 import pandas as pd
 from dotenv import load_dotenv
 
-# Load .env from project root
+# Load .env from project root (local dev)
 load_dotenv(Path(__file__).parent / ".env")
+
+# Also load Streamlit Cloud secrets into env vars (for deployed app)
+if hasattr(st, "secrets"):
+    for key in ["GEMINI_API_KEY", "YAHOO_EMAIL", "YAHOO_APP_PASSWORD"]:
+        if key in st.secrets:
+            os.environ[key] = st.secrets[key]
 
 from src.escalation.email_client import YahooEmailClient, Email
 from src.analyzer.email_analyzer import EmailAnalyzer, AnalysisResult
