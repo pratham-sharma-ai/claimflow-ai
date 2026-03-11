@@ -86,7 +86,15 @@ st.markdown("""
 # ──────────────────────────────────────────────
 
 if "analysis_result" not in st.session_state:
-    st.session_state.analysis_result = None
+    # Auto-load clean analysis if it exists (no need to re-fetch emails)
+    clean_path = Path("data/analysis/clean_analysis.json")
+    if clean_path.exists():
+        try:
+            st.session_state.analysis_result = json.loads(clean_path.read_text())
+        except Exception:
+            st.session_state.analysis_result = None
+    else:
+        st.session_state.analysis_result = None
 if "connected" not in st.session_state:
     st.session_state.connected = False
 if "emails_fetched" not in st.session_state:
