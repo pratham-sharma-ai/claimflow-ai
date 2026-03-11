@@ -344,10 +344,21 @@ with st.sidebar:
                                 "telephonic medical verification",
                                 "premium receipt acknowledgement",
                                 "for your health insurance application",
+                                # Policybazaar non-claim
+                                "2 hour hospitalization",
+                                "service calls from policybazaar",
+                                "schedule a callback",
                             ]
                             received = [
                                 e for e in received
                                 if not any(kw in e.subject.lower() for kw in exclude_keywords)
+                            ]
+                            # Also exclude Policybazaar emails from before the claim period
+                            # (policy application/onboarding emails that slip through keyword filter)
+                            received = [
+                                e for e in received
+                                if not ("policybazaar" in e.from_addr.lower() and
+                                        hasattr(e, 'date') and e.date and e.date < "2025-07-01")
                             ]
 
                     st.info(f"Found {len(received)} claim emails from insurer (filtered from {len(received_all)} total)")
@@ -620,7 +631,7 @@ if timeline:
         # Detailed timeline table
         with st.expander("📋 Detailed Timeline"):
             display_df = df[["Date", "Direction", "Subject", "Templated", "Response Time (hrs)"]].copy()
-            display_df["Date"] = display_df["Date"].dt.strftime("%Y-%m-%d %H:%M")
+            display_df["Date"] = pd.to_datetime(display_df["Date"]).dt.strftime("%Y-%m-%d %H:%M")
             st.dataframe(display_df, width="stretch", hide_index=True)
 
 
