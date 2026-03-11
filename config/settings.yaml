@@ -1,0 +1,47 @@
+# ===========================================
+# ClaimFlow AI - Configuration
+# ===========================================
+
+# LLM Settings
+llm:
+  # Model for general tasks (cost-effective)
+  default_model: "gemini-2.5-flash"
+  # Model for complex analysis (better reasoning)
+  reasoning_model: "gemini-3-pro-preview"
+  # Temperature for generation (0.0 = deterministic, 1.0 = creative)
+  temperature: 0.3
+  # Max output tokens
+  max_output_tokens: 8192
+
+# Email Settings
+email:
+  provider: "yahoo"
+  check_interval_minutes: 30
+  max_auto_escalations: 5
+
+# Escalation Settings
+escalation:
+  # Days to wait before auto-escalating if no substantive response
+  wait_days: 3
+  # Days before triggering LinkedIn post reminder
+  linkedin_reminder_days: 14
+  # Similarity threshold to detect templated responses (0.0-1.0)
+  template_similarity_threshold: 0.85
+
+# Scraper Settings
+scraper:
+  sources:
+    - name: "livemint"
+      base_url: "https://www.livemint.com"
+      search_path: "/search?q=insurance+claim+rejected+irdai"
+    - name: "economictimes"
+      base_url: "https://economictimes.indiatimes.com"
+      search_path: "/wealth/insure"
+  max_articles_per_source: 50
+  scrape_interval_days: 7
+
+# Vector Store Settings
+vector_store:
+  collection_name: "precedents"
+  embedding_model: "models/text-embedding-004"
+  similarity_top_k: 5

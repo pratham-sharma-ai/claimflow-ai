@@ -1,0 +1,88 @@
+{
+  "id": "CASE_20260201_EXAMPLE",
+  "claimant": {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": null,
+    "policy_number": "ABHI-XXXXX-XXXXX",
+    "insurer": "Aditya Birla Health Insurance",
+    "intermediary": "Policybazaar"
+  },
+  "claim": {
+    "condition": "Stroke (CVA)",
+    "hospitalization_date": "2025-12-01",
+    "discharge_date": "2025-12-10",
+    "claim_amount": "250000",
+    "claim_date": "2025-12-15",
+    "hospital_name": "City Hospital"
+  },
+  "rejection": {
+    "date": "2025-12-25",
+    "stated_reason": "Non-disclosure of pre-existing condition (Hypertension) at the time of policy purchase",
+    "condition_cited": "Hypertension",
+    "clauses_cited": ["Policy Clause 4.2", "Terms Section 8.1"],
+    "documents_requested": ["Medical records from 2018-2020", "Previous treatment history"]
+  },
+  "timeline": [
+    {
+      "date": "2025-12-01",
+      "action": "Hospitalized for stroke",
+      "by": "claimant",
+      "response": null,
+      "evidence": "discharge_summary.pdf"
+    },
+    {
+      "date": "2025-12-15",
+      "action": "Claim submitted with all hospital documents",
+      "by": "claimant",
+      "response": "Claim registered, additional documents requested",
+      "evidence": "claim_submission_email.eml"
+    },
+    {
+      "date": "2025-12-20",
+      "action": "Clarified that requested documents do not exist",
+      "by": "claimant",
+      "response": "Same documents requested again",
+      "evidence": "clarification_email.eml"
+    },
+    {
+      "date": "2025-12-25",
+      "action": "Claim rejected",
+      "by": "insurer",
+      "response": "Non-disclosure of hypertension",
+      "evidence": "rejection_email.eml"
+    },
+    {
+      "date": "2025-12-28",
+      "action": "Explained hypertension is unrelated to stroke, no recent treatment",
+      "by": "claimant",
+      "response": "No acknowledgement",
+      "evidence": "counter_email.eml"
+    },
+    {
+      "date": "2026-01-05",
+      "action": "Shared IRDAI Ombudsman precedent",
+      "by": "claimant",
+      "response": "Same templated rejection repeated",
+      "evidence": "precedent_email.eml"
+    },
+    {
+      "date": "2026-01-10",
+      "action": "Escalated to Policybazaar",
+      "by": "claimant",
+      "response": "Public acknowledgment only",
+      "evidence": "linkedin_interaction.png"
+    },
+    {
+      "date": "2026-01-15",
+      "action": "Posted on LinkedIn highlighting systemic issue",
+      "by": "claimant",
+      "response": "Public replies from both brands",
+      "evidence": "linkedin_post.png"
+    }
+  ],
+  "escalation_history": [],
+  "status": "rejected",
+  "created_at": "2026-02-01T10:00:00",
+  "updated_at": "2026-02-01T10:00:00"
+}

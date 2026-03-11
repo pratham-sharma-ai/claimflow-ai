@@ -1,0 +1,60 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.egg-info/
+dist/
+build/
+
+# ChromaDB local storage
+data/chroma/
+
+# Personal case data (contains emails, attachments, complaints)
+data/analysis/
+data/complaints/
+data/emails/
+
+# Case-specific utility scripts (contain hardcoded personal data)
+check_all_claim_emails.py
+check_latest_emails.py
+fetch_email_bodies.py
+save_attachments.py
+extract_file_attachments.py
+prepare_upload.py
+merge_to_single_pdf.py
+convert_txt_to_pdf.py
+debug_emails.py
+
+# Token cache
+.token_cache.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Playwright
+playwright/.cache/
