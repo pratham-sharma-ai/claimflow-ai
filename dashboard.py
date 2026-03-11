@@ -22,10 +22,12 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent / ".env")
 
 # Also load Streamlit Cloud secrets into env vars (for deployed app)
-if hasattr(st, "secrets"):
+try:
     for key in ["GEMINI_API_KEY", "YAHOO_EMAIL", "YAHOO_APP_PASSWORD"]:
         if key in st.secrets:
             os.environ[key] = st.secrets[key]
+except Exception:
+    pass  # No secrets.toml — running locally with .env
 
 from src.escalation.email_client import YahooEmailClient, Email
 from src.analyzer.email_analyzer import EmailAnalyzer, AnalysisResult
