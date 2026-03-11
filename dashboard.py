@@ -633,7 +633,7 @@ if timeline:
         # Detailed timeline table
         with st.expander("📋 Detailed Timeline"):
             display_df = df[["Date", "Direction", "Subject", "Templated", "Response Time (hrs)"]].copy()
-            display_df["Date"] = pd.to_datetime(display_df["Date"]).dt.strftime("%Y-%m-%d %H:%M")
+            display_df["Date"] = pd.to_datetime(display_df["Date"], utc=True).dt.strftime("%Y-%m-%d %H:%M")
             st.dataframe(display_df, width="stretch", hide_index=True)
 
 
