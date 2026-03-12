@@ -20,6 +20,7 @@ data/chroma/
 
 # Personal case data (contains emails, attachments, complaints)
 data/analysis/
+!data/analysis/clean_analysis.json
 data/complaints/
 data/emails/
 
