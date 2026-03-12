@@ -1,0 +1,532 @@
+{
+  "insurer_name": "Aditya Birla Health Insurance",
+  "total_emails_received": 38,
+  "total_emails_sent": 7,
+  "unique_responses": 13,
+  "repeated_responses": 25,
+  "repetition_rate": 0.6578947368421053,
+  "avg_response_time_hours": 0,
+  "max_response_gap_days": 0,
+  "template_phrases_found": {
+    "we regret to inform": 12,
+    "is repudiated": 4,
+    "unable to approve": 12
+  },
+  "first_email_date": "2025-07-31T12:11:20+00:00",
+  "last_email_date": "2026-03-12T15:07:57+05:30",
+  "total_days_elapsed": 224,
+  "key_findings": [
+    "66% of insurer responses are templated repeats.",
+    "The phrase \"we regret to inform\" appeared in 12 emails.",
+    "Documents were requested 3 times in 8 days - after being told they do not exist.",
+    "Issue has been open for 224 days with no resolution.",
+    "The insurer voided the policy in Oct 2025, then sent a renewal payment notice in Jan 2026.",
+    "On March 12, one ABHI department rejected the claim while another said \"your policy is active, pay premium to continue.\"",
+    "ABHI also sent a \"successfully renewed\" policy document on the same day as the rejection.",
+    "Policybazaar is still sending renewal reminders for the voided policy."
+  ],
+  "timeline": [
+    {
+      "date": "2025-07-31T12:11:20+00:00",
+      "direction": "incoming",
+      "subject": "Pre-authorization number for your health insurance policy is\r\n generated",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Your pre-authorisation ID is 1112585238669\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nPre-authorisation re",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-07-31T12:11:20+00:00",
+      "direction": "incoming",
+      "subject": "Pre-authorisation intimation for your health insurance policy is\r\n generated",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\" Dear Pawan Kumar Sharma, \r\n\r\nThank you for selecting Aditya Birla Health Insurance as your pr",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-07-31T13:57:56+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required to process pre-auth no.\r\n 1112585238669",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Additional Documents required to evaluate your pre-authorization no.\r\n1112585238669\r\n\r\nDear Pa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-07-31T14:45:50+00:00",
+      "direction": "incoming",
+      "subject": "Pre-authorization request for your health insurance policy could\r\n not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Your pre-authorization request is rejected\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nAs yo",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-01T04:33:35+00:00",
+      "direction": "incoming",
+      "subject": "Pre-authorization request for your health insurance policy could\r\n not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Your pre-authorization request is rejected\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nAs yo",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-01T04:33:37+00:00",
+      "direction": "incoming",
+      "subject": "Reconsideration request for pre-auth ID 1112585238669 could not be\r\n processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Reconsideration request for your pre-auth ID 1112585238669 is rejected\r\n\r\nDear Pa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-01T05:43:11+00:00",
+      "direction": "incoming",
+      "subject": "Pre-authorization request for your health insurance policy could\r\n not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Your pre-authorization request is rejected\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nAs yo",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-01T05:43:15+00:00",
+      "direction": "incoming",
+      "subject": "Reconsideration request for pre-auth ID 1112585238669 could not be\r\n processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Reconsideration request for your pre-auth ID 1112585238669 is rejected\r\n\r\nDear Pa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-04T16:48:54+00:00",
+      "direction": "outgoing",
+      "subject": "Request for Reimbursement \ufffd Policy No: 31-23-0060869-01 (Claim No: 1112585238669)",
+      "body_preview": "\r\nDear Team,\r\n\r\nI hope you're doing well. I\ufffdm writing to request a reconsideration of the reimbursement claim for my father,\ufffdMr. Pawan Kumar Sharma, which was recently denied due to missing documentat",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-06T04:15:07+00:00",
+      "direction": "outgoing",
+      "subject": "Re: Request for Reimbursement \ufffd Policy No: 31-23-0060869-01 (Claim No: 1112585238669)",
+      "body_preview": " Good Morning,Kindly look into the matter above.\r\nRegards\r\n    On Monday 4 August, 2025 at 10:18:54 pm IST, Pawan Sharma <cacwpks@yahoo.co.in> wrote:  \r\n \r\n \r\nDear Team,\r\n\r\nI hope you're doing well. I",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-06T10:20:41+00:00",
+      "direction": "incoming",
+      "subject": "Policy No: 31-23-0060869-01 (Claim No: 1112585238669)",
+      "body_preview": "Dear Pawan Kumar Sharma,\r\n\r\nGreetings from Aditya Birla Health Insurance Co. Ltd\r\n\r\nWe refer to your concerns raised towards claim in captioned policy number\r\n31-23-0060869-01\r\n\r\nAt onset, please acce",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-19T08:53:50+00:00",
+      "direction": "incoming",
+      "subject": "Your reimbursement Claim ID is 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nYour reimbursement Claim ID is generated on 19/08/2025 14:23:19\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-08-19T08:53:52+00:00",
+      "direction": "incoming",
+      "subject": "Your reimbursement Claim ID is 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Your reimbursement claim registration number is generated on 19-08-2025\r\n\r\nDear Pawan Kumar Sh",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-03T12:02:24+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required to process your Claim ID\r\n 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawan Kumar Sharm",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-03T12:02:26+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required for Reimbursement Claim ID\r\n 1122585253392",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-05T09:13:17+00:00",
+      "direction": "incoming",
+      "subject": "Supporting documents for your Claim ID 1122585253392 are received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID 1122585253392 are received on 05-09-2025\r\n\r\nDear Pawan ",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-09T10:24:28+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required to process your Claim ID\r\n 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawan Kumar Sharm",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-09T10:24:29+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required for Reimbursement Claim ID\r\n 1122585253392",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-09T20:24:48+00:00",
+      "direction": "incoming",
+      "subject": "Supporting documents for your Claim ID 1122585253392 are received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID 1122585253392 are received on 10-09-2025\r\n\r\nDear Pawan ",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-11T12:09:38+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required to process your Claim ID\r\n 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawan Kumar Sharm",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-11T12:09:40+00:00",
+      "direction": "incoming",
+      "subject": "Additional documents required for Reimbursement Claim ID\r\n 1122585253392",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-14T06:36:05+00:00",
+      "direction": "incoming",
+      "subject": "Supporting documents for your Claim ID 1122585253392 are received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID 1122585253392 are received on 14-09-2025\r\n\r\nDear Pawan ",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-17T08:56:06+00:00",
+      "direction": "incoming",
+      "subject": "Your reimbursement Claim ID 1122585253392 could not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Reimbursement claim ID 1122585253392 is repudiated\r\n\r\nDear Pawan Kumar Sharma,\r\n\r",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-17T08:56:09+00:00",
+      "direction": "incoming",
+      "subject": "Your reimbursement Claim ID 1122585253392 could not be processed",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Reimbursement claim ID 1122585253392 is repudiated\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nAs your trus",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-23T08:38:25+00:00",
+      "direction": "outgoing",
+      "subject": "Formal Escalation of Reimbursement Claim ID 1122585253392 \ufffd Policy No. 31-23-0060869-01",
+      "body_preview": "\r\nRespected Sir/Madam,\r\n\r\nI am constrained to formally escalate the matter of my father\ufffds reimbursement claim (Claim ID 1122585253392, Policy No. 31-23-0060869-01) which has now been repudiated despit",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-09-29T13:24:43+00:00",
+      "direction": "outgoing",
+      "subject": "Re: Formal Escalation of Reimbursement Claim ID 1122585253392 \ufffd Policy No. 31-23-0060869-01",
+      "body_preview": "  \r\nRespected Sir/Madam,\r\n\r\nDespite repeated attempts, I have not received any response from your end. This complete lack of accountability is unacceptable.\r\n\r\nIf I do not receive a satisfactory resol",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-08T07:57:49+00:00",
+      "direction": "outgoing",
+      "subject": "Re: Claim ID 1122585253392 \ufffd Policy No. 31-23-0060869-01",
+      "body_preview": " \r\nRespected Ms. Prajakta Parchand,\r\n\r\nI am extremely disappointed to receive yet another\ufffdstandard, pre-written response\ufffdrequesting the same documents that have already been submitted and clarified mu",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-18T10:06:19+00:00",
+      "direction": "outgoing",
+      "subject": "Re: Claim ID 1122585253392 \ufffd Policy No. 31-23-0060869-01",
+      "body_preview": " \r\nRespected Team,\r\n\r\nThis is to formally register my strong disappointment at the manner in which my father\ufffds claim (Claim ID 1122585253392) continues to be mishandled, despite multiple clarification",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-24T09:14:08+00:00",
+      "direction": "incoming",
+      "subject": "Supporting documents for your Claim ID INW2021121174138 are\r\n received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID INW2021121174138 are received on\r\n24-10-2025\r\n\r\nDear Pa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-24T09:14:17+00:00",
+      "direction": "incoming",
+      "subject": "Supporting documents for your Claim ID INW2021121174138 are\r\n received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID INW2021121174138 are received on\r\n24-10-2025\r\n\r\nDear Pa",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-24T11:58:30+00:00",
+      "direction": "incoming",
+      "subject": "Your reimbursement Claim ID 1122585253392 could not be processed",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Reimbursement claim ID 1122585253392 is repudiated\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nAs your trus",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-24T11:58:33+00:00",
+      "direction": "incoming",
+      "subject": "Your reimbursement Claim ID 1122585253392 could not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Reimbursement claim ID 1122585253392 is repudiated\r\n\r\nDear Pawan Kumar Sharma,\r\n\r",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-10-24T12:29:29+00:00",
+      "direction": "incoming",
+      "subject": "Your Policy Number 31-23-0060869-01",
+      "body_preview": "Dear Mr. Pawan Kumar Sharma,\r\n\r\nGreetings from the Aditya Birla Health Insurance Co. Limited.\r\n\r\nWe have investigated the concern raised regarding claim number 1122585253392. Upon scrutiny of the subm",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-11-03T13:32:47+00:00",
+      "direction": "outgoing",
+      "subject": "Re: Your Policy Number 31-23-0060869-01",
+      "body_preview": " \r\nDear Ms. Ruheena Mahagami,\r\n\r\nI acknowledge your response regarding my father\ufffds claim (Claim ID 1122585253392). However, the reasoning cited for rejection is factually and legally untenable.\r\n   \r\n",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2025-11-06T07:12:05+00:00",
+      "direction": "incoming",
+      "subject": "Re: Your Policy Number 31-23-0060869-01",
+      "body_preview": "Dear Mr. Pawan Kumar Sharma,\r\n\r\nGreetings from the Aditya Birla Health Insurance Co. Limited.\r\nWe have investigated the concern raised regarding claim number 1122585253392. Upon scrutiny of the submit",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-01-07T08:24:18+00:00",
+      "direction": "incoming",
+      "subject": "Your Health Insurance Policy No. 31-23-0060869-01 is due for\r\n Renewal",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nDear Pawan Kumar Sharma,\r\n\r\n\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nWe hope this message finds you ",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-01-23T08:24:40+05:30",
+      "direction": "incoming",
+      "subject": "Renewal Notice - Aditya Birla Health Insurance - 31-23-0060869-01",
+      "body_preview": "\r\n\r\n\r\n  \r\n    \r\n    \r\n    \r\n    \r\n    \r\n    \r\n  \r\n\r\n  \r\n    \r\n      \r\n        \r\n          \r\n            \r\n              \r\n                \r\n                  \r\n                    \r\n                  ",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-05T21:09:32+05:30",
+      "direction": "incoming",
+      "subject": "Case Number - 19874096, Policy Number 31-23-0060869-01",
+      "body_preview": "\t\r\n\r\n\r\n\r\n\r\n\t\r\n\t\t\r\n\t\t\t\r\n\t\t\r\n\t\r\n\r\n\r\n\r\n\r\n\r\n\r\nDear Mr. Pawan Sharma , Greetings from Aditya Birla Health Insurance! We acknowledge the receipt of your complaint submitted via IGMS\ufffd bearing Complaint No. \ufffd",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-08T16:01:28+05:30",
+      "direction": "incoming",
+      "subject": "Policy - 31-23-0060869-01 : Increase your Sum Insured on this renewal",
+      "body_preview": "\r\n\r\n\r\n  \r\n    \r\n    \r\n    \r\n    \r\n    \r\n    \r\n  \r\n\r\n  \r\n    \r\n      \r\n        \r\n          \r\n            \r\n              \r\n                \r\n                  \r\n                    \r\n                  ",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-10T11:43:33+05:30",
+      "direction": "incoming",
+      "subject": "Case - Policy related services",
+      "body_preview": "\r\n\r\n\t\r\n\r\n\r\n\r\n\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tDear Pawan, \r\n\t\t\t\r\n\t\t\tWe sincerely apologize for the inconvenience caused to you.\r\n\t\t\t\r\n\t\t\tAs per our tel",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-11T13:13:57+05:30",
+      "direction": "incoming",
+      "subject": "Your Health Insurance Policy Renewal on Policybazaar (Ref. ID- 1042851178)",
+      "body_preview": "\r\r\n\r\r\n\r\r\n\r\r\n  \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n\r\r\n    \r\r\n  \r\r\n\r\r\n  \r\r\n    \r\r\n      \r\r\n        \r\r\n\r\r\n\r\r\n          \r\r\n            \r\r\n              \r\r\n\r\r\n                \r\n  \r\n    \r\n  ",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-11T15:42:24+05:30",
+      "direction": "incoming",
+      "subject": "Aditya Birla Health Insurance - NXT Renewal_Notice_31-23-0060869-01",
+      "body_preview": "Dear Mr. Pawan Sharma, Please find the attached NXT Renewal_Notice as requested. Continue to use our digital journeys for enhanced experience.",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-12T09:52:55+05:30",
+      "direction": "incoming",
+      "subject": "Policy Number_31-23-0060869-01",
+      "body_preview": "Dear Pawan, As we discussed with the policy, right now your policy is active. If you pay the premium for next year policy is continue. Thanks and Regards, Supriya Khandekar",
+      "is_templated": false,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-12T13:06:10+05:30",
+      "direction": "incoming",
+      "subject": "Your Policy Number 31-23-0060869-01",
+      "body_preview": "\r\n\r\n\t\r\n\r\nDear Mr. Pawan Kumar Sharma,\r\n\r\nGreetings from the Aditya Birla Health Insurance Co. Limited.\r\n\r\nWe have investigated the concern raised regarding claim number 1122585253392 . Upon scrutiny o",
+      "is_templated": true,
+      "response_time_hours": null
+    },
+    {
+      "date": "2026-03-12T15:07:57+05:30",
+      "direction": "incoming",
+      "subject": "Case - Policy Document",
+      "body_preview": "\r\n\r\n\t\r\n\r\n\r\n\r\n\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\ufffd\r\n\r\n\t\t\tDear Policy Holder,\r\n\t\t\t\r\n\t\t\tTrust you and your family are doing well.\r\n\t\t\t\r\n\t\t\tYour Aditya Birla",
+      "is_templated": false,
+      "response_time_hours": null
+    }
+  ],
+  "email_groups": [
+    {
+      "count": 4,
+      "subject": "Your reimbursement Claim ID 1122585253392 could not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Reimbursement claim ID 1122585253392 is repudiated\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nAs your trusted insurance advisor, it is our endeavour to support you and\r\npartner with you for b",
+      "first_seen": "2025-09-17T08:56:06+00:00",
+      "last_seen": "2025-10-24T11:58:33+00:00"
+    },
+    {
+      "count": 3,
+      "subject": "Pre-authorization request for your health insurance policy could\r\n not be processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Your pre-authorization request is rejected\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nAs your trusted insurance advisor, it is our endeavour to support you and\r\npartner with you for better he",
+      "first_seen": "2025-07-31T14:45:50+00:00",
+      "last_seen": "2025-08-01T05:43:11+00:00"
+    },
+    {
+      "count": 3,
+      "subject": "Additional documents required to process your Claim ID\r\n 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nFollowing additional documents are required to process Claim ID 1122585253392\r\nfor your Aditya",
+      "first_seen": "2025-09-03T12:02:24+00:00",
+      "last_seen": "2025-09-11T12:09:38+00:00"
+    },
+    {
+      "count": 3,
+      "subject": "Additional documents required for Reimbursement Claim ID\r\n 1122585253392",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Additional documents required to process your Claim ID 1122585253392\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nFollowing additional documents are required to process reimbursement Claim ID\r\n",
+      "first_seen": "2025-09-03T12:02:26+00:00",
+      "last_seen": "2025-09-11T12:09:40+00:00"
+    },
+    {
+      "count": 3,
+      "subject": "Supporting documents for your Claim ID 1122585253392 are received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID 1122585253392 are received on 05-09-2025\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nWe have received additional documents on behalf of Pawan Kumar Sharma in support\r\no",
+      "first_seen": "2025-09-05T09:13:17+00:00",
+      "last_seen": "2025-09-14T06:36:05+00:00"
+    },
+    {
+      "count": 3,
+      "subject": "Your Policy Number 31-23-0060869-01",
+      "body_preview": "Dear Mr. Pawan Kumar Sharma,\r\n\r\nGreetings from the Aditya Birla Health Insurance Co. Limited.\r\n\r\nWe have investigated the concern raised regarding claim number 1122585253392. Upon scrutiny of the submitted documents, it has been observed that the policy inception date with Aditya Birla Health Insura",
+      "first_seen": "2025-10-24T12:29:29+00:00",
+      "last_seen": "2026-03-12T13:06:10+05:30"
+    },
+    {
+      "count": 2,
+      "subject": "Reconsideration request for pre-auth ID 1112585238669 could not be\r\n processed",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nHeadline: Reconsideration request for your pre-auth ID 1112585238669 is rejected\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\n\r\nAs your trusted insurance advisor, it is our endeavour to support you and\r\npa",
+      "first_seen": "2025-08-01T04:33:37+00:00",
+      "last_seen": "2025-08-01T05:43:15+00:00"
+    },
+    {
+      "count": 2,
+      "subject": "Your reimbursement Claim ID is 1122585253392",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nYour reimbursement Claim ID is generated on 19/08/2025 14:23:19\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nReimbursement Claim ID for your Aditya Birla Health Insurance- Activ One NXT\r\nwith policy number 31-",
+      "first_seen": "2025-08-19T08:53:50+00:00",
+      "last_seen": "2025-08-19T08:53:52+00:00"
+    },
+    {
+      "count": 2,
+      "subject": "Supporting documents for your Claim ID INW2021121174138 are\r\n received",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Supporting documents for your Claim ID INW2021121174138 are received on\r\n24-10-2025\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nWe have received additional documents on behalf of Pawan Kumar Sharma in suppor",
+      "first_seen": "2025-10-24T09:14:08+00:00",
+      "last_seen": "2025-10-24T09:14:17+00:00"
+    },
+    {
+      "count": 1,
+      "subject": "Pre-authorization number for your health insurance policy is\r\n generated",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Your pre-authorisation ID is 1112585238669\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nPre-authorisation request for your Aditya Birla Health Insurance- Activ One NXT\r\nplan with policy number 31-23-0060869-0",
+      "first_seen": "2025-07-31T12:11:20+00:00",
+      "last_seen": "2025-07-31T12:11:20+00:00"
+    },
+    {
+      "count": 1,
+      "subject": "Pre-authorisation intimation for your health insurance policy is\r\n generated",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\" Dear Pawan Kumar Sharma, \r\n\r\nThank you for selecting Aditya Birla Health Insurance as your primary Health\r\nFirst Partner. We are committed to offer you outstanding insurance coverage and\r\nsuppo",
+      "first_seen": "2025-07-31T12:11:20+00:00",
+      "last_seen": "2025-07-31T12:11:20+00:00"
+    },
+    {
+      "count": 1,
+      "subject": "Additional documents required to process pre-auth no.\r\n 1112585238669",
+      "body_preview": "RHI_Email_Header.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\n\"Additional Documents required to evaluate your pre-authorization no.\r\n1112585238669\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nRequest you to share the following additional documents required to process\r\npr",
+      "first_seen": "2025-07-31T13:57:56+00:00",
+      "last_seen": "2025-07-31T13:57:56+00:00"
+    },
+    {
+      "count": 1,
+      "subject": "Policy No: 31-23-0060869-01 (Claim No: 1112585238669)",
+      "body_preview": "Dear Pawan Kumar Sharma,\r\n\r\nGreetings from Aditya Birla Health Insurance Co. Ltd\r\n\r\nWe refer to your concerns raised towards claim in captioned policy number\r\n31-23-0060869-01\r\n\r\nAt onset, please accept our sincere apology for the inconvenience caused to you regarding delay in response.\r\ncashless fa",
+      "first_seen": "2025-08-06T10:20:41+00:00",
+      "last_seen": "2025-08-06T10:20:41+00:00"
+    },
+    {
+      "count": 1,
+      "subject": "Your Health Insurance Policy No. 31-23-0060869-01 is due for\r\n Renewal",
+      "body_preview": "Email_Header_Revised.png [https://cpssprod.adityabirlahealth.com/ABHI/HTML_IMAGE/Email_Header_Revised.png] \r\nDear Pawan Kumar Sharma,\r\n\r\n\r\n\r\nDear Pawan Kumar Sharma,\r\n\r\nWe hope this message finds you in good health and high spirits. At Aditya Birla\r\nHealth Insurance, your well-being is our top prior",
+      "first_seen": "2026-01-07T08:24:18+00:00",
+      "last_seen": "2026-01-07T08:24:18+00:00"
+    },
+    {
+      "count": 1,
+      "subject": "Renewal Notice - Aditya Birla Health Insurance - 31-23-0060869-01",
+      "body_preview": "\r\n\r\n\r\n  \r\n    \r\n    \r\n    \r\n    \r\n    \r\n    \r\n  \r\n\r\n  \r\n    \r\n      \r\n        \r\n          \r\n            \r\n              \r\n                \r\n                  \r\n                    \r\n                      \r\n                        \r\n                      \r\n                    \r\n                    \r\n",
+      "first_seen": "2026-01-23T08:24:40+05:30",
+      "last_seen": "2026-01-23T08:24:40+05:30"
+    },
+    {
+      "count": 1,
+      "subject": "Case Number - 19874096, Policy Number 31-23-0060869-01",
+      "body_preview": "\t\r\n\r\n\r\n\r\n\r\n\t\r\n\t\t\r\n\t\t\t\r\n\t\t\r\n\t\r\n\r\n\r\n\r\n\r\n\r\n\r\nDear Mr. Pawan Sharma , Greetings from Aditya Birla Health Insurance! We acknowledge the receipt of your complaint submitted via IGMS\ufffd bearing Complaint No. \ufffd03-26-004124. We have registered the same with us under Case No. 19874096\ufffd for your reference. We ar",
+      "first_seen": "2026-03-05T21:09:32+05:30",
+      "last_seen": "2026-03-05T21:09:32+05:30"
+    },
+    {
+      "count": 1,
+      "subject": "Policy - 31-23-0060869-01 : Increase your Sum Insured on this renewal",
+      "body_preview": "\r\n\r\n\r\n  \r\n    \r\n    \r\n    \r\n    \r\n    \r\n    \r\n  \r\n\r\n  \r\n    \r\n      \r\n        \r\n          \r\n            \r\n              \r\n                \r\n                  \r\n                    \r\n                      \r\n                        \r\n                      \r\n                    \r\n                    \r\n",
+      "first_seen": "2026-03-08T16:01:28+05:30",
+      "last_seen": "2026-03-08T16:01:28+05:30"
+    },
+    {
+      "count": 1,
+      "subject": "Case - Policy related services",
+      "body_preview": "\r\n\r\n\t\r\n\r\n\r\n\r\n\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\tDear Pawan, \r\n\t\t\t\r\n\t\t\tWe sincerely apologize for the inconvenience caused to you.\r\n\t\t\t\r\n\t\t\tAs per our telephonic conversation\ufffddated 10th March\ufffd2026, we wish to inform you that your grievance is being regis",
+      "first_seen": "2026-03-10T11:43:33+05:30",
+      "last_seen": "2026-03-10T11:43:33+05:30"
+    },
+    {
+      "count": 1,
+      "subject": "Your Health Insurance Policy Renewal on Policybazaar (Ref. ID- 1042851178)",
+      "body_preview": "\r\r\n\r\r\n\r\r\n\r\r\n  \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n    \r\r\n\r\r\n    \r\r\n  \r\r\n\r\r\n  \r\r\n    \r\r\n      \r\r\n        \r\r\n\r\r\n\r\r\n          \r\r\n            \r\r\n              \r\r\n\r\r\n                \r\n  \r\n    \r\n      \r\n        \r\n      \r\n    \r\n  \r\n\r\r\n\r\r\n                \r\r\n                  \r\r\n                  \r\r",
+      "first_seen": "2026-03-11T13:13:57+05:30",
+      "last_seen": "2026-03-11T13:13:57+05:30"
+    },
+    {
+      "count": 1,
+      "subject": "Case - Policy Document",
+      "body_preview": "\r\n\r\n\t\r\n\r\n\r\n\r\n\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\r\n\t\t\r\n\t\t\t\r\n\t\t\t\r\n\t\t\t\ufffd\r\n\r\n\t\t\tDear Policy Holder,\r\n\t\t\t\r\n\t\t\tTrust you and your family are doing well.\r\n\t\t\t\r\n\t\t\tYour Aditya Birla Health Insurance plan is successfully renewed. Please refer attached Policy Schedule/ policy copy.\r",
+      "first_seen": "2026-03-12T15:07:57+05:30",
+      "last_seen": "2026-03-12T15:07:57+05:30"
+    }
+  ]
+}
