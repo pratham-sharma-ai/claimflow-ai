@@ -48,6 +48,9 @@ debug_emails.py
 .DS_Store
 Thumbs.db
 
+# Screenshots (may contain personal data)
+data/screenshots/
+
 # Logs
 *.log
 logs/
