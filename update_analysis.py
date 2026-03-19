@@ -92,7 +92,7 @@ def fetch_emails_by_search(mail, folder, criteria):
 
     return results
 
-def main():
+def main(policy_number="", claim_numbers="", insurer_name=""):
     mail = connect()
     print("[+] Connected\n")
 
@@ -103,13 +103,17 @@ def main():
     # INBOX: Search by multiple criteria
     # ──────────────────────────────────────────
 
-    searches = [
-        # By claim ID in subject
-        ('INBOX', 'SUBJECT "1122585253392"', "claim ID"),
-        # By pre-auth ID in subject
-        ('INBOX', 'SUBJECT "1112585238669"', "pre-auth ID"),
-        # By policy number in subject
-        ('INBOX', 'SUBJECT "31-23-0060869"', "policy number"),
+    # Build dynamic searches from user-provided policy/claim numbers
+    dynamic_searches = []
+    if claim_numbers:
+        for cn in claim_numbers.split(","):
+            cn = cn.strip()
+            if cn:
+                dynamic_searches.append(('INBOX', f'SUBJECT "{cn}"', f"claim ID {cn}"))
+    if policy_number:
+        dynamic_searches.append(('INBOX', f'SUBJECT "{policy_number}"', "policy number"))
+
+    searches = dynamic_searches + [
         # By sender: Communications.Abh (renewal notices, claim emails)
         ('INBOX', 'FROM "Communications.Abh"', "Communications.Abh"),
         # By sender: abhi.grievance
@@ -149,10 +153,16 @@ def main():
     # SENT folder
     # ──────────────────────────────────────────
 
-    sent_searches = [
-        ('Sent', 'SUBJECT "31-23-0060869"', "sent+policy"),
-        ('Sent', 'SUBJECT "1122585253392"', "sent+claim"),
-        ('Sent', 'SUBJECT "1112585238669"', "sent+preauth"),
+    dynamic_sent = []
+    if policy_number:
+        dynamic_sent.append(('Sent', f'SUBJECT "{policy_number}"', "sent+policy"))
+    if claim_numbers:
+        for cn in claim_numbers.split(","):
+            cn = cn.strip()
+            if cn:
+                dynamic_sent.append(('Sent', f'SUBJECT "{cn}"', f"sent+claim_{cn}"))
+
+    sent_searches = dynamic_sent + [
         ('Sent', 'TO "adityabirla"', "sent+to_abhi"),
         ('Sent', 'TO "abhi.grievance"', "sent+to_grievance"),
         ('Sent', 'TO "carehead"', "sent+to_carehead"),
@@ -388,7 +398,7 @@ def main():
 
     # Build final analysis
     analysis = {
-        "insurer_name": "Aditya Birla Health Insurance",
+        "insurer_name": insurer_name or "Insurance Company",
         "total_emails_received": len(filtered_received),
         "total_emails_sent": len(filtered_sent),
         "claim_emails_received": claim_count,

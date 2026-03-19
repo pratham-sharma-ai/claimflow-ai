@@ -624,7 +624,7 @@ if len(contradiction_emails) >= 3:
             <div class="card-subject">"{e.get('subject', '')}"</div>
             <div class="card-quote" style="border-color: #4361ee;">
                 "Your policy is active. If you pay the premium for next year policy is continue."
-                <br><br>— Supriya Khandekar, ABHI Renewals
+                <br><br>— Insurer Renewals Team
             </div>
         </div>
         """, unsafe_allow_html=True)
