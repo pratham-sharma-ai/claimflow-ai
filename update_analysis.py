@@ -124,12 +124,14 @@ def main():
         ('INBOX', 'FROM "care.healthinsurance"', "care.healthinsurance"),
         # Broader: any email from abhiservice domain
         ('INBOX', 'FROM "abhiservice"', "abhiservice_domain"),
-        # Policybazaar with policy number
-        ('INBOX', 'FROM "policybazaar" SUBJECT "31-23-0060869"', "policybazaar+policy"),
-        # Policybazaar renewal
-        ('INBOX', 'FROM "policybazaar" SUBJECT "renewal"', "policybazaar+renewal"),
-        # Policybazaar with Ref ID
-        ('INBOX', 'FROM "policybazaar" SUBJECT "1042851178"', "policybazaar+refid"),
+        # Broad catch-all: any email from adityabirla
+        ('INBOX', 'FROM "adityabirla"', "adityabirla_catchall"),
+        # Another ABHI domain variant
+        ('INBOX', 'FROM "hiadityabirlacapital"', "hiadityabirlacapital"),
+        # Catch all abhicl.* senders (marketing, renewal, etc.)
+        ('INBOX', 'FROM "abhicl"', "abhicl_catchall"),
+        # ALL Policybazaar emails (not just renewal)
+        ('INBOX', 'FROM "policybazaar"', "policybazaar_all"),
     ]
 
     for folder, criteria, label in searches:
@@ -179,82 +181,125 @@ def main():
     ]
     policybazaar_domain = "policybazaar"
 
-    # Exclude pure marketing noise (not related to the claim or renewal contradiction)
-    noise_keywords = [
+    # ──────────────────────────────────────────
+    # Categorization keywords
+    # ──────────────────────────────────────────
+
+    claim_subject_keywords = [
+        "could not be processed", "additional documents required",
+        "supporting documents", "grievance", "repudiat",
+        "pre-auth", "cashless", "reimbursement",
+        "claim id", "claim no", "your claim", "claim number",
+        "existing claims", "your policy number",
+    ]
+    # Phrases that contain "claim" but are NOT claim-related
+    claim_false_positives = [
+        "no claim bonus", "earn no claim",
+        "a claim by lunch", "claim rejected? maybe not",
+    ]
+    claim_body_keywords = [
+        "we regret to inform", "unable to approve the claim",
+        "could not be processed", "is repudiated",
+        "our decision remains unchanged", "claim stands rejected",
+        "non-disclosure", "pre-existing",
+    ]
+    renewal_keywords = [
+        "renewal", "is due for renewal", "renew", "premium due",
+        "successfully renewed", "premium notice", "pay premium",
+        "policy is active", "policy is continue",
+    ]
+    marketing_keywords = [
         "healthreturns", "activ health app", "healthy habits",
-        "join the challenge", "earn no claim",
-        "dedicated manager", "welcome onboard",
-        "application is accepted", "application for health insurance",
-        "application is under evaluation", "telephonic medical verification",
-        "premium receipt acknowledgement", "for your health insurance application",
-        "schedule a callback", "service calls from policybazaar",
-        "2 hour hospitalization",
-        # Generic PB marketing
+        "join the challenge", "earn no claim", "no claim bonus",
+        "dedicated manager", "sum insured", "increase your sum",
+        "health check", "wellness", "fitness", "reward",
+        "offer", "discount", "cashback", "refer a friend",
+        "download the app", "2 hour hospitalization",
         "checklist for a stress-free",
     ]
+    admin_keywords = [
+        "welcome onboard", "application is accepted",
+        "application for health insurance",
+        "application is under evaluation",
+        "telephonic medical verification",
+        "premium receipt acknowledgement",
+        "for your health insurance application",
+        "schedule a callback", "service calls from policybazaar",
+        "policy document", "e-card", "id card",
+    ]
 
-    # Filter received emails
+    def categorize_email(subject_lower, body_lower, from_addr_lower):
+        """Categorize email: claim > renewal > admin > marketing > other."""
+        # Check for false positives first (marketing emails containing "claim")
+        if any(fp in subject_lower for fp in claim_false_positives):
+            pass  # Skip claim check, fall through to other categories
+        else:
+            # Claim-related (highest priority)
+            if any(kw in subject_lower for kw in claim_subject_keywords):
+                return "claim"
+            if any(kw in body_lower for kw in claim_body_keywords):
+                return "claim"
+        # Renewal
+        if any(kw in subject_lower for kw in renewal_keywords):
+            return "renewal"
+        if any(kw in body_lower for kw in renewal_keywords):
+            return "renewal"
+        # Administrative (onboarding, policy docs)
+        if any(kw in subject_lower for kw in admin_keywords):
+            return "administrative"
+        if any(kw in body_lower for kw in admin_keywords):
+            return "administrative"
+        # Marketing
+        if any(kw in subject_lower for kw in marketing_keywords):
+            return "marketing"
+        if any(kw in body_lower for kw in marketing_keywords):
+            return "marketing"
+        return "other"
+
+    # Template detection markers
+    template_subject_markers = [
+        "could not be processed",
+        "additional documents required",
+        "supporting documents",
+        "is due for renewal",
+    ]
+    template_body_markers = [
+        "we regret to inform",
+        "unable to approve the claim",
+        "could not be processed",
+        "is repudiated",
+        "our decision remains unchanged",
+        "claim stands rejected",
+    ]
+
+    # Process ALL received emails — no noise filter, no date filter
     filtered_received = []
     for r in sorted(all_received.values(), key=lambda x: x["date"]):
         from_addr = r["from"].lower()
         subject_lower = r["subject"].lower()
+        body_lower = r["body_preview"].lower()
 
         # Must be from insurer or policybazaar
         is_insurer = any(d in from_addr for d in insurer_domains)
         is_policybazaar = policybazaar_domain in from_addr
 
         if not is_insurer and not is_policybazaar:
-            print(f"  SKIP (not insurer): [{r['date'][:10]}] {r['subject'][:60]}")
+            print(f"  SKIP (not insurer/PB): [{r['date'][:10]}] {r['subject'][:60]}")
             continue
 
-        # Filter out pre-claim emails (before July 2025)
-        if r["date"] < "2025-07-01":
-            print(f"  SKIP (pre-claim): [{r['date'][:10]}] {r['subject'][:60]}")
-            continue
-
-        # For Policybazaar: only keep renewal notices for THIS policy
-        # (proves the contradiction — renewing a voided policy)
-        if is_policybazaar:
-            has_policy_num = "31-23-0060869" in r["subject"]
-            has_ref_id = "1042851178" in r["subject"]
-            is_renewal = "renewal" in subject_lower
-            # Keep if: (policy number + renewal) OR (ref ID + renewal)
-            if not ((has_policy_num and is_renewal) or (has_ref_id and is_renewal)):
-                print(f"  SKIP (PB not policy-renewal): [{r['date'][:10]}] {r['subject'][:60]}")
-                continue
-
-        # Filter out noise
-        if any(kw in subject_lower for kw in noise_keywords):
-            print(f"  SKIP (noise): [{r['date'][:10]}] {r['subject'][:60]}")
-            continue
-
-        # Determine direction
+        # Determine direction and categorize
         r["direction"] = "incoming"
+        r["category"] = categorize_email(subject_lower, body_lower, from_addr)
         r["is_templated"] = False
 
-        # Mark as templated: check BOTH subject AND body for template indicators
-        template_subject_markers = [
-            "could not be processed",
-            "additional documents required",
-            "supporting documents",
-            "is due for renewal",
-        ]
-        template_body_markers = [
-            "we regret to inform",
-            "unable to approve the claim",
-            "could not be processed",
-            "is repudiated",
-            "our decision remains unchanged",
-            "claim stands rejected",
-        ]
-
+        # Mark as templated
         if any(phrase in subject_lower for phrase in template_subject_markers):
             r["is_templated"] = True
-        elif any(phrase in r["body_preview"].lower() for phrase in template_body_markers):
+        elif any(phrase in body_lower for phrase in template_body_markers):
             r["is_templated"] = True
 
         filtered_received.append(r)
-        print(f"  KEEP: [{r['date'][:10]}] {r['subject'][:70]} {'[TEMPLATED]' if r['is_templated'] else ''}")
+        print(f"  KEEP [{r['category'].upper():12s}]: [{r['date'][:10]}] {r['subject'][:60]} {'[TEMPLATED]' if r['is_templated'] else ''}")
 
     # Filter sent: only emails TO the insurer (not forwards to family)
     insurer_to_addrs = ["adityabirla", "abhi.grievance", "carehead", "gro.health"]
@@ -264,6 +309,7 @@ def main():
         if any(addr in to_addr for addr in insurer_to_addrs):
             r["direction"] = "outgoing"
             r["is_templated"] = False
+            r["category"] = "claim"
             filtered_sent.append(r)
             print(f"  SENT: [{r['date'][:10]}] {r['subject'][:70]}")
         else:
@@ -282,27 +328,39 @@ def main():
         if count > 0:
             template_phrases[phrase] = count
 
-    # Calculate days elapsed
+    # Calculate days elapsed — from date of hospital admission to latest email
+    # Admission date: July 31, 2025 (pre-auth generated same day)
+    admission_date = datetime(2025, 7, 31, tzinfo=timezone.utc)
     if all_timeline:
-        first_dt = datetime.fromisoformat(all_timeline[0]["date"].replace("Z", "+00:00"))
         last_dt = datetime.fromisoformat(all_timeline[-1]["date"].replace("Z", "+00:00"))
-        days_elapsed = (last_dt - first_dt).days
+        days_elapsed = (last_dt - admission_date).days
     else:
         days_elapsed = 0
 
-    # Count templated vs unique
-    templated_count = sum(1 for r in filtered_received if r.get("is_templated"))
-    unique_count = len(filtered_received) - templated_count
-    rep_rate = templated_count / len(filtered_received) if filtered_received else 0
+    # Category counts (received only)
+    from collections import Counter
+    category_counts = Counter(r.get("category", "other") for r in filtered_received)
+
+    # Count templated vs unique (claim emails only for the core metric)
+    claim_received = [r for r in filtered_received if r.get("category") == "claim"]
+    templated_count = sum(1 for r in claim_received if r.get("is_templated"))
+    unique_count = len(claim_received) - templated_count
+    rep_rate = templated_count / len(claim_received) if claim_received else 0
 
     # Build key findings
+    marketing_count = category_counts.get("marketing", 0)
+    renewal_count = category_counts.get("renewal", 0)
+    admin_count = category_counts.get("administrative", 0)
+    claim_count = category_counts.get("claim", 0)
+
     key_findings = [
-        f"{rep_rate:.0%} of insurer responses are templated repeats.",
+        f"{rep_rate:.0%} of claim-related responses are templated repeats.",
         f'The phrase "we regret to inform" appeared in {template_phrases.get("we regret to inform", 0)} emails.',
-        f"Documents were requested 3 times in 8 days — after being told they don't exist.",
+        f"Documents were requested 3 times in 8 days -- after being told they don't exist.",
         f"Issue has been open for {days_elapsed} days with no resolution.",
         f"The insurer voided the policy in Oct 2025, then sent a renewal payment notice in Jan 2026.",
         f"Policybazaar is still sending renewal reminders as of this week for the voided policy.",
+        f"While ignoring the claim, the insurer sent {marketing_count} marketing emails and {renewal_count} renewal notices.",
     ]
 
     # Build email groups (group by similar subject)
@@ -325,6 +383,7 @@ def main():
             "body_preview": emails[0]["body_preview"][:300],
             "first_seen": emails[0]["date"],
             "last_seen": emails[-1]["date"],
+            "category": emails[0].get("category", "other"),
         })
 
     # Build final analysis
@@ -332,12 +391,18 @@ def main():
         "insurer_name": "Aditya Birla Health Insurance",
         "total_emails_received": len(filtered_received),
         "total_emails_sent": len(filtered_sent),
+        "claim_emails_received": claim_count,
+        "marketing_emails_received": marketing_count,
+        "renewal_emails_received": renewal_count,
+        "admin_emails_received": admin_count,
+        "other_emails_received": category_counts.get("other", 0),
         "unique_responses": unique_count,
         "repeated_responses": templated_count,
         "repetition_rate": rep_rate,
-        "avg_response_time_hours": 0,  # complex to calculate, keep 0
+        "avg_response_time_hours": 0,
         "max_response_gap_days": 0,
         "template_phrases_found": template_phrases,
+        "category_counts": dict(category_counts),
         "first_email_date": all_timeline[0]["date"] if all_timeline else "",
         "last_email_date": all_timeline[-1]["date"] if all_timeline else "",
         "total_days_elapsed": days_elapsed,
@@ -349,6 +414,7 @@ def main():
                 "subject": r["subject"],
                 "body_preview": r["body_preview"][:200],
                 "is_templated": r.get("is_templated", False),
+                "category": r.get("category", "other"),
                 "response_time_hours": None,
             }
             for r in all_timeline
@@ -358,15 +424,20 @@ def main():
 
     # Save
     out_path = Path("data/analysis/clean_analysis.json")
-    out_path.write_text(json.dumps(analysis, indent=2, ensure_ascii=False))
+    out_path.write_text(json.dumps(analysis, indent=2, ensure_ascii=True), encoding="utf-8")
 
     print(f"\n{'='*60}")
     print(f"SAVED: {out_path}")
-    print(f"  Received: {len(filtered_received)}")
-    print(f"  Sent: {len(filtered_sent)}")
-    print(f"  Templated: {templated_count}")
-    print(f"  Unique: {unique_count}")
-    print(f"  Repetition rate: {rep_rate:.0%}")
+    print(f"  Total Received: {len(filtered_received)}")
+    print(f"    Claim:         {claim_count}")
+    print(f"    Marketing:     {marketing_count}")
+    print(f"    Renewal:       {renewal_count}")
+    print(f"    Administrative:{admin_count}")
+    print(f"    Other:         {category_counts.get('other', 0)}")
+    print(f"  Total Sent: {len(filtered_sent)}")
+    print(f"  Claim Templated: {templated_count}")
+    print(f"  Claim Unique: {unique_count}")
+    print(f"  Claim Repetition rate: {rep_rate:.0%}")
     print(f"  Days elapsed: {days_elapsed}")
     print(f"  Template phrases: {template_phrases}")
     print(f"{'='*60}")

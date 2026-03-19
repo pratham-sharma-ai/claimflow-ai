@@ -74,6 +74,58 @@ st.markdown("""
         margin: 8px 0;
         border-radius: 0 8px 8px 0;
     }
+    .contradiction-card {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #2a2a4a;
+        height: 100%;
+        min-height: 260px;
+    }
+    .contradiction-card .card-time {
+        font-size: 13px;
+        color: #8892b0;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .contradiction-card .card-dept {
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        display: inline-block;
+        margin: 8px 0;
+        font-weight: 600;
+    }
+    .contradiction-card .card-subject {
+        font-size: 15px;
+        font-weight: 700;
+        color: #ccd6f6;
+        margin: 10px 0 8px 0;
+        line-height: 1.3;
+    }
+    .contradiction-card .card-quote {
+        font-size: 13px;
+        color: #a8b2d1;
+        font-style: italic;
+        border-left: 3px solid;
+        padding-left: 12px;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+    .contradiction-header {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    .contradiction-header .date-badge {
+        background: #e94560;
+        color: white;
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 14px;
+        display: inline-block;
+    }
     .stApp {
         background-color: #0a0a1a;
     }
@@ -237,11 +289,12 @@ with st.sidebar:
 
     st.divider()
 
-    # Connection mode
+    # Connection mode — default to saved analysis if no .env credentials
+    has_env_creds = bool(os.getenv("YAHOO_EMAIL")) and bool(os.getenv("YAHOO_APP_PASSWORD"))
     mode = st.radio(
         "Data Source",
         ["Connect to Yahoo Mail", "Load from saved analysis"],
-        index=0,
+        index=0 if has_env_creds else 1,
     )
 
     if mode == "Connect to Yahoo Mail":
@@ -480,26 +533,35 @@ st.divider()
 # Key Metrics Row
 # ──────────────────────────────────────────────
 
-col1, col2, col3, col4, col5 = st.columns(5)
+total_received = _get_value(result, "total_emails_received", 0)
+total_sent = _get_value(result, "total_emails_sent", 0)
+claim_received = _get_value(result, "claim_emails_received", total_received)
+marketing_received = _get_value(result, "marketing_emails_received", 0)
+renewal_received = _get_value(result, "renewal_emails_received", 0)
+admin_received = _get_value(result, "admin_emails_received", 0)
+other_received = _get_value(result, "other_emails_received", 0)
+unique = _get_value(result, "unique_responses", 0)
+rep_rate = _get_value(result, "repetition_rate", 0)
+days = _get_value(result, "total_days_elapsed", 0)
+
+col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 with col1:
-    total_received = _get_value(result, "total_emails_received", 0)
-    st.metric("Emails Received", total_received)
+    st.metric("Total Emails", total_received + total_sent)
 
 with col2:
-    total_sent = _get_value(result, "total_emails_sent", 0)
-    st.metric("Emails Sent", total_sent)
+    st.metric("Claim Emails", claim_received, delta=f"of {total_received} received", delta_color="off")
 
 with col3:
-    unique = _get_value(result, "unique_responses", 0)
-    st.metric("Unique Responses", unique, delta=f"of {total_received}", delta_color="off")
+    st.metric("Marketing Emails", marketing_received)
 
 with col4:
-    rep_rate = _get_value(result, "repetition_rate", 0)
-    st.metric("Repetition Rate", f"{rep_rate:.0%}")
+    st.metric("Emails Sent by You", total_sent)
 
 with col5:
-    days = _get_value(result, "total_days_elapsed", 0)
+    st.metric("Claim Repetition Rate", f"{rep_rate:.0%}")
+
+with col6:
     st.metric("Days Unresolved", days)
 
 
@@ -525,6 +587,224 @@ st.divider()
 
 
 # ──────────────────────────────────────────────
+# Same-Day Contradiction Showcase
+# ──────────────────────────────────────────────
+
+st.subheader("Same-Day Contradiction — March 12, 2026")
+st.caption("Three departments. Three contradictory positions. One day.")
+
+# Find the 3 contradictory emails from the timeline
+contradiction_emails = []
+for entry in _get_value(result, "timeline", []):
+    if isinstance(entry, dict):
+        date_str = entry.get("date", "")
+    else:
+        date_str = entry.date
+    if "2026-03-12" in date_str:
+        contradiction_emails.append(entry if isinstance(entry, dict) else {
+            "date": entry.date, "subject": entry.subject,
+            "body_preview": entry.body_preview, "category": getattr(entry, "category", "other"),
+        })
+
+if len(contradiction_emails) >= 3:
+    st.markdown("""
+    <div class="contradiction-header">
+        <span class="date-badge">12 MARCH 2026 — ALL THREE EMAILS, SAME DAY</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        e = contradiction_emails[0]
+        st.markdown(f"""
+        <div class="contradiction-card" style="border-top: 4px solid #4361ee;">
+            <div class="card-time">09:52 AM</div>
+            <div class="card-dept" style="background: #4361ee22; color: #4361ee;">RENEWALS TEAM</div>
+            <div class="card-subject">"{e.get('subject', '')}"</div>
+            <div class="card-quote" style="border-color: #4361ee;">
+                "Your policy is active. If you pay the premium for next year policy is continue."
+                <br><br>— Supriya Khandekar, ABHI Renewals
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with c2:
+        e = contradiction_emails[1]
+        st.markdown(f"""
+        <div class="contradiction-card" style="border-top: 4px solid #e94560;">
+            <div class="card-time">01:06 PM</div>
+            <div class="card-dept" style="background: #e9456022; color: #e94560;">CLAIMS TEAM</div>
+            <div class="card-subject">"{e.get('subject', '')}"</div>
+            <div class="card-quote" style="border-color: #e94560;">
+                "We have investigated the concern... Upon scrutiny, claim is repudiated due to non-disclosure of pre-existing disease."
+                <br><br>— ABHI Claims Department
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with c3:
+        e = contradiction_emails[2]
+        st.markdown(f"""
+        <div class="contradiction-card" style="border-top: 4px solid #0db39e;">
+            <div class="card-time">03:07 PM</div>
+            <div class="card-dept" style="background: #0db39e22; color: #0db39e;">POLICY SERVICING</div>
+            <div class="card-subject">"{e.get('subject', '')}"</div>
+            <div class="card-quote" style="border-color: #0db39e;">
+                "Dear Policy Holder, Trust you and your family are doing well. Your Aditya Birla Health Insurance plan is successfully renewed."
+                <br><br>— ABHI Policy Servicing
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("")
+    st.markdown(f"""
+    <div class="finding-card" style="border-left-color: #fca311; text-align: center;">
+        <strong style="font-size: 16px;">At 9:52 AM, the policy is "active." At 1:06 PM, the claim is "repudiated" for non-disclosure.
+        At 3:07 PM, the same policy is "successfully renewed."</strong><br>
+        <span style="color: #8892b0;">Three departments, zero coordination, one family caught in the middle.</span>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("")
+else:
+    st.info("Contradiction emails not found in timeline. Ensure March 12 emails are present in analysis data.")
+
+
+# ──────────────────────────────────────────────
+# IRDAI Complaint Status
+# ──────────────────────────────────────────────
+irdai_status = _get_value(result, "irdai_complaint_status", {})
+if irdai_status:
+    st.markdown("")
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px;
+                padding: 24px; border: 1px solid #2a2a4a; margin-top: 8px;">
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+            <span style="font-size: 22px; font-weight: 700; color: #ccd6f6;">
+                IRDAI Bima Bharosa — Complaint Status
+            </span>
+            <span style="background: #fca311; color: #000; padding: 4px 14px; border-radius: 20px;
+                         font-weight: 700; font-size: 12px; margin-left: 16px; letter-spacing: 1px;">
+                ATTENDED TO
+            </span>
+        </div>
+        <div style="background: #0a192f; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+            <span style="color: #8892b0; font-size: 13px;">Insurer's response to the regulator:</span>
+            <div style="color: #e94560; font-size: 16px; font-weight: 600; margin-top: 6px; font-style: italic;">
+                "Email sent to customer informing claim stands denied basis"
+            </div>
+        </div>
+        <div style="color: #a8b2d1; font-size: 13px; line-height: 1.6;">
+            The insurer responded to the IRDAI complaint with the same denial — no medical causality analysis,
+            no engagement with the Supreme Court ruling (2025 INSC 268), no acknowledgement that the cited condition
+            is unrelated and outside the 36-month PED window. Meanwhile, their own renewals team continues to say
+            the policy is active and asks for premium payment.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("")
+
+
+st.divider()
+
+
+# ──────────────────────────────────────────────
+# Email Category Breakdown
+# ──────────────────────────────────────────────
+
+st.subheader("📬 Email Category Breakdown")
+st.caption("What did the insurer and intermediary actually send us?")
+
+category_counts = _get_value(result, "category_counts", {})
+if category_counts:
+    cat_col_left, cat_col_right = st.columns(2)
+
+    with cat_col_left:
+        # Category bar chart
+        categories = []
+        counts = []
+        colors = []
+        category_colors = {
+            "claim": "#e94560",
+            "marketing": "#fca311",
+            "renewal": "#4361ee",
+            "administrative": "#8892b0",
+            "other": "#555555",
+        }
+        category_labels = {
+            "claim": "Claim-Related",
+            "marketing": "Marketing / Promotions",
+            "renewal": "Renewal Notices",
+            "administrative": "Administrative / Onboarding",
+            "other": "Other",
+        }
+        for cat in ["claim", "marketing", "renewal", "administrative", "other"]:
+            if category_counts.get(cat, 0) > 0:
+                categories.append(category_labels.get(cat, cat))
+                counts.append(category_counts[cat])
+                colors.append(category_colors.get(cat, "#555555"))
+
+        fig_cat = go.Figure(data=[go.Bar(
+            x=counts,
+            y=categories,
+            orientation="h",
+            marker_color=colors,
+            text=counts,
+            textposition="outside",
+        )])
+
+        fig_cat.update_layout(
+            title="Emails Received by Category",
+            xaxis_title="Count",
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            height=350,
+            yaxis=dict(autorange="reversed"),
+            margin=dict(l=10, r=40, t=40, b=40),
+        )
+
+        st.plotly_chart(fig_cat, width="stretch")
+
+    with cat_col_right:
+        # Pie chart of categories
+        fig_cat_pie = go.Figure(data=[go.Pie(
+            labels=categories,
+            values=counts,
+            hole=0.4,
+            marker_colors=colors,
+            textinfo="label+percent",
+            textfont_size=12,
+        )])
+
+        fig_cat_pie.update_layout(
+            title="Communication Mix",
+            template="plotly_dark",
+            paper_bgcolor="rgba(0,0,0,0)",
+            height=350,
+            showlegend=False,
+        )
+
+        st.plotly_chart(fig_cat_pie, width="stretch")
+
+    # Highlight the contradiction
+    if marketing_received > 0 or renewal_received > 0:
+        non_claim = marketing_received + renewal_received + admin_received + other_received
+        st.markdown(f"""
+        <div class="finding-card">
+            <strong>The contrast:</strong> Out of {total_received} emails received, only {claim_received} were about the claim.
+            Meanwhile, {marketing_received} were marketing promotions and {renewal_received} were renewal notices —
+            including renewal demands for a policy the insurer had already voided.
+        </div>
+        """, unsafe_allow_html=True)
+
+else:
+    st.info("Category breakdown not available in this analysis. Re-run update_analysis.py to generate.")
+
+
+st.divider()
+
+
+# ──────────────────────────────────────────────
 # Communication Timeline
 # ──────────────────────────────────────────────
 
@@ -534,6 +814,21 @@ timeline = _get_value(result, "timeline", [])
 
 if timeline:
     # Build timeline dataframe
+    category_color_map = {
+        "claim": "#e94560",
+        "marketing": "#fca311",
+        "renewal": "#4361ee",
+        "administrative": "#8892b0",
+        "other": "#555555",
+    }
+    category_label_map = {
+        "claim": "Claim",
+        "marketing": "Marketing",
+        "renewal": "Renewal",
+        "administrative": "Admin",
+        "other": "Other",
+    }
+
     timeline_data = []
     for entry in timeline:
         if isinstance(entry, dict):
@@ -543,6 +838,7 @@ if timeline:
             is_templated = entry.get("is_templated", False)
             response_time = entry.get("response_time_hours")
             body_preview = entry.get("body_preview", "")
+            category = entry.get("category", "other")
         else:
             date = entry.date
             direction = entry.direction
@@ -550,6 +846,7 @@ if timeline:
             is_templated = entry.is_templated
             response_time = entry.response_time_hours
             body_preview = entry.body_preview
+            category = getattr(entry, "category", "other")
 
         try:
             dt = datetime.fromisoformat(date.replace("Z", "+00:00"))
@@ -558,12 +855,15 @@ if timeline:
 
         timeline_data.append({
             "Date": dt,
-            "Direction": "⬅️ Received" if direction == "incoming" else "➡️ Sent",
+            "Direction": "Received" if direction == "incoming" else "Sent",
             "Direction_Raw": direction,
             "Subject": subject,
             "Preview": body_preview[:100],
-            "Templated": "🔴 Yes" if is_templated else "🟢 No",
+            "Templated": "Yes" if is_templated else "No",
             "Is_Templated": is_templated,
+            "Category": category,
+            "Category_Label": category_label_map.get(category, category),
+            "Color": category_color_map.get(category, "#555555"),
             "Response Time (hrs)": response_time or 0,
             "Y_Position": 1 if direction == "incoming" else -1,
         })
@@ -571,38 +871,44 @@ if timeline:
     df = pd.DataFrame(timeline_data)
 
     if not df.empty:
-        # Timeline scatter plot
+        # Timeline scatter plot — color by category
         fig = go.Figure()
 
-        # Incoming emails (from insurer)
         incoming = df[df["Direction_Raw"] == "incoming"]
         outgoing = df[df["Direction_Raw"] == "outgoing"]
 
-        # Incoming - templated
-        inc_template = incoming[incoming["Is_Templated"]]
-        inc_unique = incoming[~incoming["Is_Templated"]]
+        # Plot incoming emails by category
+        for cat, color in category_color_map.items():
+            cat_df = incoming[incoming["Category"] == cat]
+            if cat_df.empty:
+                continue
+            label = category_label_map.get(cat, cat)
+            # Templated markers get a ring
+            templated = cat_df[cat_df["Is_Templated"]]
+            not_templated = cat_df[~cat_df["Is_Templated"]]
 
-        if not inc_template.empty:
-            fig.add_trace(go.Scatter(
-                x=inc_template["Date"],
-                y=[1] * len(inc_template),
-                mode="markers",
-                marker=dict(size=16, color="#e94560", symbol="circle"),
-                name="Insurer - Templated Response",
-                hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
-                customdata=list(zip(inc_template["Subject"], inc_template["Preview"])),
-            ))
+            if not not_templated.empty:
+                fig.add_trace(go.Scatter(
+                    x=not_templated["Date"],
+                    y=[1] * len(not_templated),
+                    mode="markers",
+                    marker=dict(size=14, color=color, symbol="circle"),
+                    name=f"{label}",
+                    hovertemplate="<b>[%{customdata[2]}]</b> %{customdata[0]}<br>%{customdata[1]}<extra></extra>",
+                    customdata=list(zip(not_templated["Subject"], not_templated["Preview"], not_templated["Category_Label"])),
+                ))
 
-        if not inc_unique.empty:
-            fig.add_trace(go.Scatter(
-                x=inc_unique["Date"],
-                y=[1] * len(inc_unique),
-                mode="markers",
-                marker=dict(size=16, color="#0db39e", symbol="circle"),
-                name="Insurer - Unique Response",
-                hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
-                customdata=list(zip(inc_unique["Subject"], inc_unique["Preview"])),
-            ))
+            if not templated.empty:
+                fig.add_trace(go.Scatter(
+                    x=templated["Date"],
+                    y=[1] * len(templated),
+                    mode="markers",
+                    marker=dict(size=14, color=color, symbol="circle",
+                                line=dict(width=3, color="white")),
+                    name=f"{label} (Templated)",
+                    hovertemplate="<b>[%{customdata[2]} - TEMPLATED]</b> %{customdata[0]}<br>%{customdata[1]}<extra></extra>",
+                    customdata=list(zip(templated["Subject"], templated["Preview"], templated["Category_Label"])),
+                ))
 
         # Outgoing emails
         if not outgoing.empty:
@@ -610,7 +916,7 @@ if timeline:
                 x=outgoing["Date"],
                 y=[-1] * len(outgoing),
                 mode="markers",
-                marker=dict(size=14, color="#4361ee", symbol="diamond"),
+                marker=dict(size=12, color="#0db39e", symbol="diamond"),
                 name="You - Sent",
                 hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
                 customdata=list(zip(outgoing["Subject"], outgoing["Preview"])),
@@ -620,14 +926,14 @@ if timeline:
         fig.add_hline(y=0, line_dash="dash", line_color="gray", opacity=0.3)
 
         fig.update_layout(
-            title="Email Timeline: You vs Insurer",
+            title="Email Timeline: You vs Insurer (Color = Category, White ring = Templated)",
             xaxis_title="Date",
             yaxis=dict(
                 tickvals=[-1, 1],
                 ticktext=["You (Sent)", f"{insurer_name} (Received)"],
                 range=[-2, 2],
             ),
-            height=400,
+            height=450,
             template="plotly_dark",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(10,10,26,0.8)",
@@ -640,7 +946,8 @@ if timeline:
 
         # Detailed timeline table
         with st.expander("📋 Detailed Timeline"):
-            display_df = df[["Date", "Direction", "Subject", "Templated", "Response Time (hrs)"]].copy()
+            display_df = df[["Date", "Direction", "Category_Label", "Subject", "Templated"]].copy()
+            display_df.columns = ["Date", "Direction", "Category", "Subject", "Templated"]
             display_df["Date"] = pd.to_datetime(display_df["Date"], utc=True).dt.strftime("%Y-%m-%d %H:%M")
             st.dataframe(display_df, width="stretch", hide_index=True)
 
@@ -652,7 +959,8 @@ st.divider()
 # Repetition Analysis
 # ──────────────────────────────────────────────
 
-st.subheader("🔄 Response Repetition Analysis")
+st.subheader("🔄 Claim Response Repetition Analysis")
+st.caption("Of the claim-related emails, how many were just copy-paste templates?")
 
 col_left, col_right = st.columns(2)
 
