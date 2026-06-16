@@ -22,6 +22,7 @@ data/chroma/
 data/analysis/
 data/complaints/
 data/emails/
+data/escalation_log/
 
 # Case-specific utility scripts (contain hardcoded personal data)
 check_all_claim_emails.py
